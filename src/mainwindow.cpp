@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include <QtWidgets>
+#include <string>
 //#include "lib\anilist\anilistapi.h"
 
 //AniListAPI *apiFetch = new AniListAPI(NULL, "brah-gkee1","oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz");
@@ -74,24 +75,21 @@ void MainWindow::quit()
 	// Parse response into a JSON
 	json o = json::parse(r.text);
 
-	//testing json object
-	json j2 = {
-		{ "pi", 3.141 },
-		{ "happy", true },
-		{ "name", "Niels" },
-		{ "nothing", nullptr },
-		{ "answer",{
-			{ "everything", 42 }
-		} },
-		{ "list",{ 1, 0, 2 } },
-		{ "object",{
-			{ "currency", "USD" },
-			{ "value", 42.99 }
-		} }
-	};
 
-	j2.find("happy");
-	o = json::parse(r.text);
+	// Try finding the access token
+	// TODO First check status token!
+	// TODO Make a renew token function!
+	auto accessString = o.at("access_token");
+	std::string test2 = accessString;
+
+	//Knowing the token, find the chater img directory
+	auto s = cpr::Get(cpr::Url{ "https://anilist.co/api/character/search/revy" },
+		cpr::Parameters{ { "access_token", test2 } });
+	json p = json::parse(s.text);
+	// Response an object inside an array
+	accessString = p.at(0).at("image_url_lge");
+	test2 = accessString;
+	p1->setPicture(QString::fromStdString(test2));
 
 }
 

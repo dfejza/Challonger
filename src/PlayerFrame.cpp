@@ -16,6 +16,7 @@ PlayerFrame::PlayerFrame(QString picPath, QString picLabel)
 
 void PlayerFrame::setPicture(QString pic)
 {
+	//TODO Incomming pic will be a URL. What will you do?
 }
 
 void PlayerFrame::setLabel(QString label)
