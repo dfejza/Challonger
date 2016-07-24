@@ -1,9 +1,12 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
-
+//#include <curl/curl.h>
+#include <cpr/cpr.h>
 #include <QMainWindow>
+#include "json.hpp"
 #include "PlayerFrame.h"
-
+// for convenience
+using json = nlohmann::json;
 class QAction;
 class QActionGroup;
 class QLabel;
@@ -49,7 +52,6 @@ private:
 	QLabel *pTwoLabelText;
 	PlayerFrame *p1;
 	PlayerFrame *p2;
-	
 };
 
 #endif // MAINWINDOW_H

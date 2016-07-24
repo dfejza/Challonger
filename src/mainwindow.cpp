@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 #include <QtWidgets>
+//#include "lib\anilist\anilistapi.h"
+
+//AniListAPI *apiFetch = new AniListAPI(NULL, "brah-gkee1","oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz");
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -65,7 +68,31 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 
 void MainWindow::quit()
 {
-	//Event Listener, What happens when quit is pressed?
+	// Get access key from Anilist API
+	auto r = cpr::Post(cpr::Url{ "https://anilist.co/api/auth/access_token" },
+		cpr::Payload{ { "grant_type", "client_credentials" },{ "client_id", "brah-gkee1" },{ "client_secret", "oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz" } });
+	// Parse response into a JSON
+	json o = json::parse(r.text);
+
+	//testing json object
+	json j2 = {
+		{ "pi", 3.141 },
+		{ "happy", true },
+		{ "name", "Niels" },
+		{ "nothing", nullptr },
+		{ "answer",{
+			{ "everything", 42 }
+		} },
+		{ "list",{ 1, 0, 2 } },
+		{ "object",{
+			{ "currency", "USD" },
+			{ "value", 42.99 }
+		} }
+	};
+
+	j2.find("happy");
+	o = json::parse(r.text);
+
 }
 
 void MainWindow::credentials()
