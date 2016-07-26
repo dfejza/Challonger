@@ -163,6 +163,8 @@
     <ClCompile Include="lib\cpr\cpr\proxies.cpp" />
     <ClCompile Include="lib\cpr\cpr\session.cpp" />
     <ClCompile Include="lib\cpr\cpr\util.cpp" />
+    <ClCompile Include="src\AniListParser.cpp" />
+    <ClCompile Include="src\ChallongeParser.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\mainwindow.cpp" />
     <ClCompile Include="src\PlayerFrame.cpp" />
@@ -190,6 +192,8 @@
     <ClInclude Include="lib\libcurl\include\curl\multi.h" />
     <ClInclude Include="lib\libcurl\include\curl\stdcheaders.h" />
     <ClInclude Include="lib\libcurl\include\curl\typecheck-gcc.h" />
+    <ClInclude Include="src\AniListParser.h" />
+    <ClInclude Include="src\ChallongeParser.h" />
     <ClInclude Include="src\PlayerFrame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
