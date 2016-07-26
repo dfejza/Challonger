@@ -20,6 +20,20 @@ ChallongeParser::ChallongeParser() :
 	participantIndex = json::parse(j.text);
 }
 
+// What if the tournament is halfway done? Lets get the interna
+// book keeping up to date
+void ChallongeParser::getCaughtUp()
+{
+	auto s = cpr::Get(cpr::Url{CHALLONGE_API_BASE_URL+TOURNAMENTS_SUFFIX+tournamentId+"/matches.json"},
+		cpr::Parameters{ { "access_token", token } });
+	json temp = json::parse(s.text);
+	while(matchIndex.at(currentMatch).at("state")=="open"){
+		matchIndex++;
+	}
+	auto checkRound = matchIndex.at(currentMatch).at("suggested_play_order")-1;
+	//TODO compare contents of checkRound with matchIndex
+}
+
 void ChallongeParser::incPlayerOneScore()
 {
 	playerOneScore++;
