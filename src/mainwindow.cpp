@@ -69,8 +69,9 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 
 void MainWindow::quit()
 {
-
-
+  aniList = new AniListParser();
+  challonge = new ChallongeParser();
+  std::string p1Name = challonge->fetchPlayerOneName();
 }
 
 void MainWindow::credentials()
@@ -126,4 +127,3 @@ void MainWindow::createMenus()
 	helpMenu = menuBar()->addMenu(tr("&Help"));
 	helpMenu->addAction(aboutAct);
 }
-

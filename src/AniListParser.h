@@ -5,15 +5,13 @@
 
 class AniListParser {
 public:
-	AniListParser();//init the token
+	AniListParser();
 	std::string getCharacterImg(std::string charName);
-	void renewToken();//TODO somehow know when to renew token. Create a timer/sleep 
+	void renewToken()
 
 private:
 	std::string token;
 	std::string clientId;
 	std::string clientSecrete;
 	int renewTime;
-
-
 };

@@ -1,38 +1,40 @@
 #include "AniListParser.h"
+const std::string ANILIST_API_URL ="https://anilist.co/api/";
+const std::string AUTHENTICATION_SUFFIX ="auth/access_token/";
+const std::string SEARCH_SUFFIX ="character/search/";
 
-//// Get access key from Anilist API
-//auto r = cpr::Post(cpr::Url{ "https://anilist.co/api/auth/access_token" },
-//	cpr::Payload{ { "grant_type", "client_credentials" },{ "client_id", "brah-gkee1" },{ "client_secret", "oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz" } });
-//// Parse response into a JSON
-//json o = json::parse(r.text);
-//
-//
-//// Try finding the access token
-//// TODO First check status token!
-//// TODO Make a renew token function!
-//auto accessString = o.at("access_token");
-//std::string test2 = accessString;
-//
-////Knowing the token, find the chater img directory
-//auto s = cpr::Get(cpr::Url{ "https://anilist.co/api/character/search/revy" },
-//	cpr::Parameters{ { "access_token", test2 } });
-//json p = json::parse(s.text);
-//// Response an object inside an array
-//accessString = p.at(0).at("image_url_lge");
-//test2 = accessString;
-//p1->setPicture(QString::fromStdString(test2));
-
+clientId = "brah-gkee1";
+clientSecrete = "oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz";
 
 AniListParser::AniListParser()
 {
-	//TODO grab the user's API key from some dialogue
+	AniListParser::renewToken();
 }
 
+//
 std::string AniListParser::getCharacterImg(std::string charName)
 {
-	return std::string();
+	//Knowing the token, find the chater img directory
+	auto s = cpr::Get(cpr::Url{ANILIST_API_URL+SEARCH_SUFFIX+charName},
+		cpr::Parameters{ { "access_token", token } });
+	json p = json::parse(s.text);
+	// Response an object inside an array
+	auto accessString = p.at(0).at("image_url_lge");
+
+	return accessString;
 }
 
+//TODO Make a timer for this guy
 void AniListParser::renewToken()
 {
+	// Get access key from Anilist API
+	auto r = cpr::Post(cpr::Url{ANILIST_API_URL+AUTHENTICATION_SUFFIX},
+	cpr::Payload{ { "grant_type", "client_credentials" },{ "client_id", clientId },{ "client_secret",clientSecrete} });
+	// Parse response into a JSON
+	json o = json::parse(r.text);
+
+	// Try finding the access token
+	// TODO First check status token!
+	auto accessString = o.at("access_token");
+	token = accessString;
 }

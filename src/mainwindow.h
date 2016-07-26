@@ -5,6 +5,8 @@
 #include <QMainWindow>
 #include "json.hpp"
 #include "PlayerFrame.h"
+#include "ChallongeParser.h"
+#include "AniListParser.h"
 // for convenience
 using json = nlohmann::json;
 class QAction;
@@ -52,6 +54,8 @@ private:
 	QLabel *pTwoLabelText;
 	PlayerFrame *p1;
 	PlayerFrame *p2;
+  ChallongeParser *challonge;
+  AniListParser *aniList;
 };
 
 #endif // MAINWINDOW_H
