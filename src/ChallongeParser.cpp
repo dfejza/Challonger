@@ -92,7 +92,7 @@ void ChallongeParser::pushWinner()
 	//TODO call a function to take us to the next match.
 }
 
-void ChallongeParser::loadPlayerFrames(PlayerFrame p1, PlayerFrame p2){
+void ChallongeParser::loadPlayerFrames(PlayerFrame** p1, PlayerFrame** p2){
 	db.getPlayerFrame(matchIndex.at(currentMatch).at("match").at("player1_id"), p1);
 	db.getPlayerFrame(matchIndex.at(currentMatch).at("match").at("player2_id"), p2);
 
