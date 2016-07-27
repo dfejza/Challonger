@@ -30,6 +30,8 @@ ChallongeParser::ChallongeParser() :
 	auto j = cpr::Get(cpr::Url{CHALLONGE_API_BASE_URL+TOURNAMENTS_SUFFIX+tournamentId+"/participants.json"},
 		cpr::Parameters{ { "api_key", apiKey } });
 	participantIndex = json::parse(j.text);
+
+	db = new PlayerDatabase(participantIndex);
 }
 
 // What if the tournament is halfway done? Lets get the interna

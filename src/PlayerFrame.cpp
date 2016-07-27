@@ -14,6 +14,11 @@ PlayerFrame::PlayerFrame(QString picPath, QString picLabel)
 	this->addWidget(text);
 }
 
+PlayerFrame:PlayerFrame(int playerId,Qtring name){
+	this.playerId=playerId;
+	text = new QLabel(name);
+}
+
 void PlayerFrame::setPicture(QString pic)
 {
 	//TODO Incomming pic will be a URL. What will you do?
@@ -25,4 +30,13 @@ void PlayerFrame::setLabel(QString label)
 
 void PlayerFrame::setScore(int score)
 {
+}
+
+void PlayerFrame::setPlayerId(int pid)
+{
+}
+
+int PlayerFrame::getPlayerId()
+{
+	return playerId;
 }

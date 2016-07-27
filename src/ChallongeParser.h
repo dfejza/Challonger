@@ -23,6 +23,7 @@ public:
 private:
 	void pushWinner(); //TODO make it bool, in case push fails?
 
+	PLayerDatabase db;
 	json matchIndex;//all matches
 	json participantIndex;
 	std::string tournamentId;
