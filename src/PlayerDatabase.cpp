@@ -24,6 +24,6 @@ void PlayerDatabase::createDatabase(json o){
 
 }
 
-std::string getName(int participantId){
-  return pdb[participantId];
+void  PlayerDatabase::getPlayerFrame(int participantId, PlayerFrame** playerFrame){
+  playerFrame = pdb[participantId];
 }

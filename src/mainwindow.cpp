@@ -72,7 +72,12 @@ void MainWindow::quit()
 {
   aniList = new AniListParser();
   challonge = new ChallongeParser();
-  std::string p1Name = challonge->fetchPlayerOneName();
+  challonge.getCaughtUp();//TODO maybe call this in consturctor of ChallongeParser?
+  challonge.loadPlayerFrames(p1, p2);
+
+  //currently p1 and p2 and pointers to PlayerFrames. Let them point to new ones?
+
+
 }
 
 void MainWindow::credentials()

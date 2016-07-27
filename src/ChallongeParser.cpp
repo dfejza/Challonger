@@ -34,17 +34,14 @@ ChallongeParser::ChallongeParser() :
 	db = new PlayerDatabase(participantIndex);
 }
 
-// What if the tournament is halfway done? Lets get the interna
+// What if the tournament is halfway done? Lets get the internal
 // book keeping up to date
 void ChallongeParser::getCaughtUp()
 {
-	auto s = cpr::Get(cpr::Url{CHALLONGE_API_BASE_URL+TOURNAMENTS_SUFFIX+tournamentId+"/matches.json"},
-		cpr::Parameters{ { "api_key", apiKey } });
-	json temp = json::parse(s.text);
-	while(matchIndex.at(currentMatch).at("match").at("state")=="open"){
+	while(matchIndex.at(currentMatch).at("match").at("state")=="complete"){
 		currentMatch++;
 	}
-	auto checkRound = matchIndex.at(currentMatch).at("match").at("suggested_play_order")-1;
+	//auto checkRound = matchIndex.at(currentMatch).at("match").at("suggested_play_order")-1;
 	//TODO compare contents of checkRound with matchIndex
 }
 
@@ -62,6 +59,7 @@ void ChallongeParser::incPlayerTwoScore()
 		pushWinner();
 }
 
+/*
 std::string ChallongeParser::fetchPlayerOneName(){
 	int playerId = matchIndex.at(currentMatch).at("match").at("player1_id");
 	//TODO need to make a function where the players are stored by their hash. this current method doesnt work.
@@ -72,7 +70,7 @@ std::string ChallongeParser::fetchPlayerTwoName(){
 	int playerId = matchIndex.at(currentMatch).at("match").at("player1_id");
 	return participantIndex.at(std::to_string(playerId)).at("name");
 }
-
+*/
 
 
 void ChallongeParser::pushWinner()
@@ -92,4 +90,10 @@ void ChallongeParser::pushWinner()
 
 	currentMatch++;
 	//TODO call a function to take us to the next match.
+}
+
+void ChallongeParser::loadPlayerFrames(PlayerFrame p1, PlayerFrame p2){
+	db.getPlayerFrame(matchIndex.at(currentMatch).at("match").at("player1_id"), p1);
+	db.getPlayerFrame(matchIndex.at(currentMatch).at("match").at("player2_id"), p2);
+
 }

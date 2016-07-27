@@ -11,8 +11,8 @@ class PlayerDatabase{
 public:
   PlayerDatabase(json o);
   void createDatabase(json o);
-  std::string getName(int participantId);
+  void getPlayerFrame(int participantId, PlayerFrame** playerFrame);
 private:
   //g++ -std=c++0x main.cpp?
-  unordered_map <int, PlayerFrame> pdb;
+  unordered_map <int, PlayerFrame> pdb;//maybe make this a pointer?
 }

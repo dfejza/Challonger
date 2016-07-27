@@ -16,8 +16,10 @@ public:
 	void getCaughtUp();
 	void incPlayerOneScore();//keep an internal counter. When counter reachers # of voters, then place a PUT rest request.
 	void incPlayerTwoScore();
+	/*
 	std::string fetchPlayerOneName();
 	std::string fetchPlayerTwoName();
+	*/
 
 
 private:
