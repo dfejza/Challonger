@@ -51,6 +51,7 @@ MainWindow::MainWindow(QWidget *parent)
 	setWindowTitle(tr("Menus"));
 	setMinimumSize(160, 160);
 	resize(960, 640);
+	quit();
 }
 
 MainWindow::~MainWindow(){}

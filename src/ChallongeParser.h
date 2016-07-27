@@ -17,14 +17,13 @@ public:
 	void incPlayerOneScore();//keep an internal counter. When counter reachers # of voters, then place a PUT rest request.
 	void incPlayerTwoScore();
 	std::string fetchPlayerOneName();
-	std::string fetchPlaterTwoName();
+	std::string fetchPlayerTwoName();
 
 
 private:
 	void pushWinner(); //TODO make it bool, in case push fails?
 
 	json matchIndex;//all matches
-	json currentMatch;//Not sure if I want to juggle a large json file or just fetch matches individually.
 	json participantIndex;
 	std::string tournamentId;
 	std::string apiKey;
