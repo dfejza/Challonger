@@ -167,6 +167,8 @@
     <ClCompile Include="src\ChallongeParser.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\mainwindow.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\PlayerDatabase.cpp" />
     <ClCompile Include="src\PlayerFrame.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -194,6 +196,8 @@
     <ClInclude Include="lib\libcurl\include\curl\typecheck-gcc.h" />
     <ClInclude Include="src\AniListParser.h" />
     <ClInclude Include="src\ChallongeParser.h" />
+    <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\PlayerDatabase.h" />
     <ClInclude Include="src\PlayerFrame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

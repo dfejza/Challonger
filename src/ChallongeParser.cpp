@@ -38,7 +38,8 @@ ChallongeParser::ChallongeParser() :
 // book keeping up to date
 void ChallongeParser::getCaughtUp()
 {
-	while(matchIndex.at(currentMatch).at("match").at("state")=="complete"){
+	std::string complete = "complete";
+	while(complete.compare(matchIndex.at(currentMatch).at("match").at("state")) == 0){
 		currentMatch++;
 	}
 	//auto checkRound = matchIndex.at(currentMatch).at("match").at("suggested_play_order")-1;
@@ -92,8 +93,8 @@ void ChallongeParser::pushWinner()
 	//TODO call a function to take us to the next match.
 }
 
-void ChallongeParser::loadPlayerFrames(PlayerFrame** p1, PlayerFrame** p2){
-	db.getPlayerFrame(matchIndex.at(currentMatch).at("match").at("player1_id"), p1);
-	db.getPlayerFrame(matchIndex.at(currentMatch).at("match").at("player2_id"), p2);
+void ChallongeParser::loadPlayers(Player** p1, Player** p2){
+	db->getPlayer(matchIndex.at(currentMatch).at("match").at("player1_id"), p1);
+	db->getPlayer(matchIndex.at(currentMatch).at("match").at("player2_id"), p2);
 
 }

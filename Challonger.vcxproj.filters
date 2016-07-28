@@ -91,6 +91,12 @@
     <ClCompile Include="src\ChallongeParser.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\PlayerDatabase.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Player.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src\mainwindow.h">
@@ -135,6 +141,12 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ChallongeParser.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\PlayerDatabase.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Player.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

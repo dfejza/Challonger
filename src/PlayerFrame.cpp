@@ -14,11 +14,6 @@ PlayerFrame::PlayerFrame(QString picPath, QString picLabel)
 	this->addWidget(text);
 }
 
-PlayerFrame:PlayerFrame(int playerId,Qtring name){
-	this.playerId=playerId;
-	text = new QLabel(name);
-}
-
 void PlayerFrame::setPicture(QString pic)
 {
 	//TODO Incomming pic will be a URL. What will you do?
@@ -32,11 +27,10 @@ void PlayerFrame::setScore(int score)
 {
 }
 
-void PlayerFrame::setPlayerId(int pid)
-{
-}
+void PlayerFrame::updateFrame(QString picPath, QString picLabel) {
+	QImage *image = new QImage(picPath);
+	QImage scaled = image->scaled(250, 400, Qt::KeepAspectRatio);
 
-int PlayerFrame::getPlayerId()
-{
-	return playerId;
+	picture->setPixmap(QPixmap::fromImage(scaled));
+	text->setText(picLabel);
 }

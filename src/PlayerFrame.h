@@ -1,17 +1,17 @@
 #pragma once
 #include <QtWidgets>
 #include <QString>
+#include <string>
 
 class PlayerFrame : public QVBoxLayout
 {
 public:
 	PlayerFrame(QString picPath, QString picLabel);
-	PlayerFrame(int playerId,Qtring name);
+	//PlayerFrame(int playerId,QString name);
 	void setPicture(QString pic);
 	void setLabel(QString label);
 	void setScore(int score);
-	void setPlayerId(int pid);
-	int getPlayerId();
+	void updateFrame(QString picPath, QString picLabel);
 
 private:
 	QLabel *picture;
@@ -19,5 +19,4 @@ private:
 	QLabel *score;
 	QImage *image;
 	QImage scaled;
-	int playerId;
 };

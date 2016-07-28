@@ -1,7 +1,7 @@
 #include "PlayerDatabase.h"
-#include "PlayerFrame.h"
 
 PlayerDatabase::PlayerDatabase(json o){
+
   createDatabase(o);
 }
 
@@ -12,18 +12,19 @@ void PlayerDatabase::createDatabase(json o){
   //    cout << m["foo"] << endl;
   // special iterator member functions for objects
   int participantId = 0;
-  std::string name = "";
+  
 
   //Iterate through the array, and hash each member
   for (json::iterator it = o.begin(); it != o.end(); ++it) {
     participantId = it.value().at("participant").at("id");
-    name = it.value().at("participant").at("name");
-
-    pdb[new PlayerFrame(participantId,name)] = participantId;
+	auto name1 = it.value().at("participant").at("name");
+	std::string name = name1;
+    //pdb[participantId] = new PlayerFrame(participantId, name);
+	pdb[participantId] = new Player(participantId, name);
   }
 
 }
 
-void  PlayerDatabase::getPlayerFrame(int participantId, PlayerFrame** playerFrame){
-  playerFrame = pdb[participantId];
+void  PlayerDatabase::getPlayer(int participantId, Player** player){
+  *player = pdb.at(participantId);
 }

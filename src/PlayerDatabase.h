@@ -2,7 +2,8 @@
 #include <json.hpp>
 #include <iostream>
 #include <string>
-#include <unordered_map>
+#include <map>
+#include "Player.h"
 
 using json = nlohmann::json;
 
@@ -11,8 +12,8 @@ class PlayerDatabase{
 public:
   PlayerDatabase(json o);
   void createDatabase(json o);
-  void getPlayerFrame(int participantId, PlayerFrame** playerFrame);
+  void getPlayer(int participantId, Player** player);
 private:
   //g++ -std=c++0x main.cpp?
-  unordered_map <int, PlayerFrame> pdb;//maybe make this a pointer?
-}
+	std::map <int, Player*> pdb;//maybe make this a pointer?
+};

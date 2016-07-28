@@ -5,6 +5,9 @@
 
 //AniListAPI *apiFetch = new AniListAPI(NULL, "brah-gkee1","oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz");
 
+
+
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -15,21 +18,25 @@ MainWindow::MainWindow(QWidget *parent)
 	topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 	//Player 1
-	p1 = new PlayerFrame("assets/p1.jpg", "Player 1");
+	p1Frame = new PlayerFrame("assets/p1.jpg", "Player 1");
 
 	//PLayer 2
-	p2 = new PlayerFrame("assets/p2.jpg", "Player 2");
+	p2Frame = new PlayerFrame("assets/p2.jpg", "Player 2");
 
 	QWidget *bottomFiller = new QWidget;
 	bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
+	//make empy player shells
+	p1 = new Player();
+	p2 = new Player();
 
 	// Create the layout schemes
 	// Add the qObjects to the layouts
 	QHBoxLayout *centerHorizontalLayout = new QHBoxLayout;
 	centerHorizontalLayout->setMargin(100);
-	centerHorizontalLayout->addLayout(p1);
+	centerHorizontalLayout->addLayout(p1Frame);
 	centerHorizontalLayout->addSpacing(100);
-	centerHorizontalLayout->addLayout(p2);
+	centerHorizontalLayout->addLayout(p2Frame);
 
 
 	QVBoxLayout *mainVerticalLayout = new QVBoxLayout;
@@ -51,7 +58,6 @@ MainWindow::MainWindow(QWidget *parent)
 	setWindowTitle(tr("Menus"));
 	setMinimumSize(160, 160);
 	resize(960, 640);
-	quit();
 }
 
 MainWindow::~MainWindow(){}
@@ -72,12 +78,11 @@ void MainWindow::quit()
 {
   aniList = new AniListParser();
   challonge = new ChallongeParser();
-  challonge.getCaughtUp();//TODO maybe call this in consturctor of ChallongeParser?
-  challonge.loadPlayerFrames(p1, p2);
-
+  challonge->getCaughtUp();//TODO maybe call this in consturctor of ChallongeParser?
+  challonge->loadPlayers(&p1, &p2);
+  p1Frame->updateFrame(QString::fromStdString(p1->getPicturePath()), QString::fromStdString(p1->getName()));
+  aniList->getCharacterImg("revy");
   //currently p1 and p2 and pointers to PlayerFrames. Let them point to new ones?
-
-
 }
 
 void MainWindow::credentials()

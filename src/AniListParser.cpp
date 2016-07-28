@@ -12,7 +12,6 @@ AniListParser::AniListParser()
 	AniListParser::renewToken();
 }
 
-//
 std::string AniListParser::getCharacterImg(std::string charName)
 {
 	//Knowing the token, find the chater img directory
@@ -21,6 +20,9 @@ std::string AniListParser::getCharacterImg(std::string charName)
 	nlohmann::json p = nlohmann::json::parse(s.text);
 	// Response an object inside an array
 	auto accessString = p.at(0).at("image_url_lge");
+	std::string temp = accessString;
+	char *cstr = new char[temp.length() + 1];
+	strcpy(cstr, temp.c_str());
 
 	return accessString;
 }
