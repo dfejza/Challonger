@@ -1,9 +1,11 @@
 #include "Player.h"
 
-Player::Player(int id, std::string name)
+Player::Player(int id, std::string name, std::string url, std::string picturePath)
 {
 	this->id = id;
 	this->name = name;
+	this->pictureUrl = url;
+	this->picturePath = picturePath;
 }
 
 Player::Player()

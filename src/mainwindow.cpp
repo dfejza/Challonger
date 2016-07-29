@@ -1,12 +1,9 @@
 #include "mainwindow.h"
-#include <QtWidgets>
 #include <string>
+#include <QtWidgets>
 //#include "lib\anilist\anilistapi.h"
 
 //AniListAPI *apiFetch = new AniListAPI(NULL, "brah-gkee1","oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz");
-
-
-
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -23,12 +20,16 @@ MainWindow::MainWindow(QWidget *parent)
 	//PLayer 2
 	p2Frame = new PlayerFrame("assets/p2.jpg", "Player 2");
 
+	//Make increment score bush buttons
+	p1_button = new QPushButton("Player 1 vote", this);
+	p2_button = new QPushButton("Player 2 vote", this);
+	p1_button->setGeometry(QRect(QPoint(100, 100),
+		QSize(200, 50)));
+	p2_button->setGeometry(QRect(QPoint(100, 100),
+		QSize(200, 50)));
+
 	QWidget *bottomFiller = new QWidget;
 	bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
-	//make empy player shells
-	p1 = new Player();
-	p2 = new Player();
 
 	// Create the layout schemes
 	// Add the qObjects to the layouts
@@ -37,7 +38,6 @@ MainWindow::MainWindow(QWidget *parent)
 	centerHorizontalLayout->addLayout(p1Frame);
 	centerHorizontalLayout->addSpacing(100);
 	centerHorizontalLayout->addLayout(p2Frame);
-
 
 	QVBoxLayout *mainVerticalLayout = new QVBoxLayout;
 	mainVerticalLayout->setMargin(5);
@@ -59,23 +59,21 @@ MainWindow::MainWindow(QWidget *parent)
 	setMinimumSize(160, 160);
 	resize(960, 640);
 
-
-	aniList = new AniListParser();
 	challonge = new ChallongeParser();
-	imgManager = new ImageManager();
-
-	challonge->getCaughtUp();//TODO maybe call this in consturctor of ChallongeParser?
-	challonge->loadPlayers(&p1, &p2);
-
-	p1->setPicturePath(imgManager->downloadImage(aniList->getCharacterImg(p1->getName()), p1->getId()));
-	p1Frame->updateFrame(QString::fromStdString(p1->getPicturePath()), QString::fromStdString(p1->getName()));
-
-	p2->setPicturePath(imgManager->downloadImage(aniList->getCharacterImg(p2->getName()), p2->getId()));
-	p2Frame->updateFrame(QString::fromStdString(p2->getPicturePath()), QString::fromStdString(p2->getName()));
 
 }
 
 MainWindow::~MainWindow(){}
+
+void MainWindow::updatePlayer1Frame(std::string picPath, std::string name)
+{
+	p1Frame->updateFrame(QString::fromStdString(picPath), QString::fromStdString(name));
+}
+
+void MainWindow::updatePlayer2Frame(std::string picPath, std::string name)
+{
+	p2Frame->updateFrame(QString::fromStdString(picPath), QString::fromStdString(name));
+}
 
 #ifndef QT_NO_CONTEXTMENU
 void MainWindow::contextMenuEvent(QContextMenuEvent *event)
@@ -92,19 +90,6 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 void MainWindow::quit()
 {
 
-	challonge->incPlayerOneScore();
-	challonge->incPlayerOneScore();
-	challonge->incPlayerOneScore();
-	challonge->loadPlayers(&p1, &p2);
-
-	p1->setPicturePath(imgManager->downloadImage(aniList->getCharacterImg(p1->getName()), p1->getId()));
-	p1Frame->updateFrame(QString::fromStdString(p1->getPicturePath()), QString::fromStdString(p1->getName()));
-
-	p2->setPicturePath(imgManager->downloadImage(aniList->getCharacterImg(p2->getName()), p2->getId()));
-	p2Frame->updateFrame(QString::fromStdString(p2->getPicturePath()), QString::fromStdString(p2->getName()));
-
-  
-  //currently p1 and p2 and pointers to PlayerFrames. Let them point to new ones?
 }
 
 void MainWindow::credentials()
@@ -144,7 +129,6 @@ void MainWindow::createActions()
 	//aboutAct->setShortcuts(QKeySequence::New);
 	aboutAct->setStatusTip(tr("Create a new file"));
 	connect(aboutAct, &QAction::triggered, this, &MainWindow::about);
-
 }
 
 void MainWindow::createMenus()
@@ -160,4 +144,15 @@ void MainWindow::createMenus()
 
 	helpMenu = menuBar()->addMenu(tr("&Help"));
 	helpMenu->addAction(aboutAct);
+}
+
+
+void MainWindow::handleP1Button()
+{
+	challonge->incPlayerOneScore();
+}
+
+void MainWindow::handleP2Button()
+{
+	challonge->incPlayerTwoScore();
 }

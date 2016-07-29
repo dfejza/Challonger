@@ -1,5 +1,4 @@
 #include "ChallongeParser.h"
-
 //TODO seperate REST interfacing with manipulation of json file into different classes
 
 ChallongeParser::ChallongeParser() :
@@ -27,11 +26,18 @@ ChallongeParser::ChallongeParser() :
 	*/
 	matchIndex = json::parse(s.text);
 
+	//make empy player shells
+	p1 = new Player();
+	p2 = new Player();
+
 	auto j = cpr::Get(cpr::Url{CHALLONGE_API_BASE_URL+TOURNAMENTS_SUFFIX+tournamentId+"/participants.json"},
 		cpr::Parameters{ { "api_key", apiKey } });
 	participantIndex = json::parse(j.text);
 
 	db = new PlayerDatabase(participantIndex);
+
+	getCaughtUp();
+	loadPlayers(&p1, &p2);
 }
 
 // What if the tournament is halfway done? Lets get the internal
@@ -60,19 +66,25 @@ void ChallongeParser::incPlayerTwoScore()
 		pushWinner();
 }
 
-/*
-std::string ChallongeParser::fetchPlayerOneName(){
-	int playerId = matchIndex.at(currentMatch).at("match").at("player1_id");
-	//TODO need to make a function where the players are stored by their hash. this current method doesnt work.
-	return participantIndex.at(std::to_string(playerId)).at("match").at("name");
+std::string ChallongeParser::getP1PicPath()
+{
+	return p1->getPicturePath();
 }
 
-std::string ChallongeParser::fetchPlayerTwoName(){
-	int playerId = matchIndex.at(currentMatch).at("match").at("player1_id");
-	return participantIndex.at(std::to_string(playerId)).at("name");
+std::string ChallongeParser::getP2PicPath()
+{
+	return p2->getPicturePath();
 }
-*/
 
+std::string ChallongeParser::getP1Name()
+{
+	return p1->getName();
+}
+
+std::string ChallongeParser::getP2Name()
+{
+	return p2->getName();
+}
 
 void ChallongeParser::pushWinner()
 {
@@ -92,11 +104,11 @@ void ChallongeParser::pushWinner()
 	currentMatch++;
 	playerOneScore = 0;
 	playerTwoScore = 0;
-	//TODO call a function to take us to the next match.
+
+	loadPlayers(&p1, &p2);
 }
 
-void ChallongeParser::loadPlayers(Player** p1, Player** p2){
-	db->getPlayer(matchIndex.at(currentMatch).at("match").at("player1_id"), p1);
-	db->getPlayer(matchIndex.at(currentMatch).at("match").at("player2_id"), p2);
-
+void ChallongeParser::loadPlayers(Player** p1p, Player** p2p){
+	db->getPlayer(matchIndex.at(currentMatch).at("match").at("player1_id"), p1p);
+	db->getPlayer(matchIndex.at(currentMatch).at("match").at("player2_id"), p2p);
 }

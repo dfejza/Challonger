@@ -3,7 +3,10 @@
 
 ImageManager::ImageManager()
 {
+	curl = curl_easy_init();
 }
+
+
 
 size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 	size_t written = fwrite(ptr, size, nmemb, stream);
@@ -13,21 +16,24 @@ size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 //TODO this class is messy, clean it
 std::string ImageManager::downloadImage(std::string url, int playerId)
 {
-	CURL *curl;
+	
 	FILE *fp;
 	CURLcode res;
+	char outfilename[FILENAME_MAX];
 
 	char * writable = new char[url.size() + 1];
 	std::copy(url.begin(), url.end(), writable);
 	writable[url.size()] = '\0'; // don't forget the terminating 0
 
+
 	//Make the dir
 	std::wstring str = L"assets\\" + std::to_wstring(playerId);
 	const wchar_t *str1 = str.c_str();
+
 	CreateDirectory(str.c_str(), NULL);
 
 	char *url1 = writable;
-	char outfilename[FILENAME_MAX];
+
 	strcpy(outfilename, "assets\\");
 	strcat(outfilename, std::to_string(playerId).c_str());
 	strcat(outfilename, "\\pic.jpg");
@@ -43,6 +49,5 @@ std::string ImageManager::downloadImage(std::string url, int playerId)
 		fclose(fp);
 	}
 	delete[] writable;
-
 	return outfilename;
 }

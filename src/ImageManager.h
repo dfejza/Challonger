@@ -9,4 +9,7 @@ class ImageManager {
 public:
 	ImageManager();
 	std::string downloadImage(std::string url, int playerId);
+private:
+	CURL *curl;
+
 };

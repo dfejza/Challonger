@@ -5,7 +5,7 @@
 
 class Player {
 public:
-	Player(int id, std::string name);
+	Player(int id, std::string name, std::string url, std::string path);
 	Player();
 	int getId();
 	std::string getName();
@@ -16,6 +16,7 @@ private:
 	int wins;
 	int losses;
 	std::string name;
+	std::string pictureUrl;
 	std::string picturePath;
 };
 

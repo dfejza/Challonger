@@ -2,13 +2,9 @@
 #define MAINWINDOW_H
 #define _WINSOCKAPI_
 
-#include <QMainWindow>
 #include "json.hpp"
 #include "PlayerFrame.h"
 #include "ChallongeParser.h"
-#include "AniListParser.h"
-#include "ImageManager.h"
-#include "Player.h"
 
 // for convenience
 using json = nlohmann::json;
@@ -20,8 +16,6 @@ class QMenu;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
-
-
 
 public:
     MainWindow(QWidget *parent = 0);
@@ -37,6 +31,10 @@ private slots:
 	void match();
 	void quit();
 	void about();
+	void handleP1Button();
+	void handleP2Button();
+	void updatePlayer1Frame(std::string picPath, std::string name);
+	void updatePlayer2Frame(std::string picPath, std::string name);
 
 private:
 	void createActions();
@@ -51,13 +49,12 @@ private:
 	QAction *matchAct;
 	QAction *quitAct;
 	QAction *aboutAct;
-
-	Player *p1;
+	QPushButton *p1_button;
+	QPushButton *p2_button;
 	PlayerFrame *p1Frame;
-	Player *p2;
 	PlayerFrame *p2Frame;
+
 	ChallongeParser *challonge;
-	AniListParser *aniList;
 	ImageManager *imgManager;
 };
 
