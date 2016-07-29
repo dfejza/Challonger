@@ -26,6 +26,12 @@ std::string AniListParser::getCharacterImg(std::string charName)
 	auto s = cpr::Get(cpr::Url{ANILIST_API_URL+SEARCH_SUFFIX+charName},
 		cpr::Parameters{ { "access_token", token } });
 	nlohmann::json p = nlohmann::json::parse(s.text);
+
+	//if empty search result
+	if (s.text.size() < 8) {
+		return "http://anilist.co/img/dir/character/reg/42093.jpg";
+	}
+
 	// Response an object inside an array
 	auto accessString = p.at(0).at("image_url_lge");
 	std::string temp = accessString;
