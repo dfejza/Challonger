@@ -6,7 +6,7 @@
 #include "Player.h"
 // TODO: Build an index of the participants. Make it a hashmap, challongeAPI already hashes it (see playerX-id)
 // TODO: Keep statistics on them. Download all their portraits at the start, thus poll locallys
-//https://openbracket:cnGhQzQf4yc4P6OxmsoxKWaOFEMtQa1kHpDIMy8L@api.challonge.com/v1/tournaments/asfasfasdfasdfasdf/participants.json
+//https:	//openbracket:cnGhQzQf4yc4P6OxmsoxKWaOFEMtQa1kHpDIMy8L@api.challonge.com/v1/tournaments/asfasfasdfasdfasdf/participants.json
 
 using json = nlohmann::json;
 const std::string CHALLONGE_API_BASE_URL = "https://api.challonge.com/v1/"; //TODO make a global list of const

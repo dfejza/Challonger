@@ -58,6 +58,21 @@ MainWindow::MainWindow(QWidget *parent)
 	setWindowTitle(tr("Menus"));
 	setMinimumSize(160, 160);
 	resize(960, 640);
+
+
+	aniList = new AniListParser();
+	challonge = new ChallongeParser();
+	imgManager = new ImageManager();
+
+	challonge->getCaughtUp();//TODO maybe call this in consturctor of ChallongeParser?
+	challonge->loadPlayers(&p1, &p2);
+
+	p1->setPicturePath(imgManager->downloadImage(aniList->getCharacterImg(p1->getName()), p1->getId()));
+	p1Frame->updateFrame(QString::fromStdString(p1->getPicturePath()), QString::fromStdString(p1->getName()));
+
+	p2->setPicturePath(imgManager->downloadImage(aniList->getCharacterImg(p2->getName()), p2->getId()));
+	p2Frame->updateFrame(QString::fromStdString(p2->getPicturePath()), QString::fromStdString(p2->getName()));
+
 }
 
 MainWindow::~MainWindow(){}
@@ -76,17 +91,25 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 
 void MainWindow::quit()
 {
-  aniList = new AniListParser();
-  challonge = new ChallongeParser();
-  challonge->getCaughtUp();//TODO maybe call this in consturctor of ChallongeParser?
-  challonge->loadPlayers(&p1, &p2);
-  p1Frame->updateFrame(QString::fromStdString(p1->getPicturePath()), QString::fromStdString(p1->getName()));
-  aniList->getCharacterImg("revy");
+
+	challonge->incPlayerOneScore();
+	challonge->incPlayerOneScore();
+	challonge->incPlayerOneScore();
+	challonge->loadPlayers(&p1, &p2);
+
+	p1->setPicturePath(imgManager->downloadImage(aniList->getCharacterImg(p1->getName()), p1->getId()));
+	p1Frame->updateFrame(QString::fromStdString(p1->getPicturePath()), QString::fromStdString(p1->getName()));
+
+	p2->setPicturePath(imgManager->downloadImage(aniList->getCharacterImg(p2->getName()), p2->getId()));
+	p2Frame->updateFrame(QString::fromStdString(p2->getPicturePath()), QString::fromStdString(p2->getName()));
+
+  
   //currently p1 and p2 and pointers to PlayerFrames. Let them point to new ones?
 }
 
 void MainWindow::credentials()
 {
+
 	//Event Listener, What happens when credentials is pressed?
 }
 
@@ -102,7 +125,7 @@ void MainWindow::about()
 
 void MainWindow::createActions()
 {
-	quitAct = new QAction(tr("&Quit"), this);
+	quitAct = new QAction(tr("&Force p1 win"),this);
 	quitAct->setShortcuts(QKeySequence::Quit);
 	quitAct->setStatusTip(tr("Create a new file"));
 	connect(quitAct, &QAction::triggered, this, &MainWindow::quit);

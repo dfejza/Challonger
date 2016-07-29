@@ -15,6 +15,14 @@ AniListParser::AniListParser()
 std::string AniListParser::getCharacterImg(std::string charName)
 {
 	//Knowing the token, find the chater img directory
+	//Replace the spaces
+	for (size_t pos = charName.find(' ');
+		pos != std::string::npos;
+		pos = charName.find(' ', pos))
+	{
+		charName.replace(pos, 1, "%20");
+	}
+
 	auto s = cpr::Get(cpr::Url{ANILIST_API_URL+SEARCH_SUFFIX+charName},
 		cpr::Parameters{ { "access_token", token } });
 	nlohmann::json p = nlohmann::json::parse(s.text);

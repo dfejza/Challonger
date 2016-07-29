@@ -77,19 +77,21 @@ std::string ChallongeParser::fetchPlayerTwoName(){
 void ChallongeParser::pushWinner()
 {
 	std::string winner = "";
-	std::string currentMatchId = matchIndex.at(currentMatch).at("match").at("id");
+	int currentMatchId = matchIndex.at(currentMatch).at("match").at("id");
 	//TODO what is there are an uneven amount of players?
 	if(playerOneScore>playerTwoScore){
 		winner = "player1_id";
 	}else{
 		winner = "player2_id";
 	}
-	std::string winnerId = matchIndex.at(currentMatch).at("match").at(winner);
+	int winnerId = matchIndex.at(currentMatch).at("match").at(winner);
 	//TODO for matchfield, take scores ints and make a string out of them
-	auto r = cpr::Post(cpr::Url{CHALLONGE_API_BASE_URL+TOURNAMENTS_SUFFIX+tournamentId+"/matches/"+ currentMatchId +".json"},
-	cpr::Payload{ { "api_key", apiKey},{ "match[scores_csv]", "3,0" },{ "match[winner_id]",winnerId}});
+	auto r = cpr::Put(cpr::Url{CHALLONGE_API_BASE_URL+TOURNAMENTS_SUFFIX+tournamentId+"/matches/"+ std::to_string(currentMatchId) +".json"},
+	cpr::Payload{ { "api_key", apiKey},{ "match[scores_csv]", "3-0" },{ "match[winner_id]",std::to_string(winnerId)}});
 
 	currentMatch++;
+	playerOneScore = 0;
+	playerTwoScore = 0;
 	//TODO call a function to take us to the next match.
 }
 

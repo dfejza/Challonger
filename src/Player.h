@@ -10,6 +10,7 @@ public:
 	int getId();
 	std::string getName();
 	std::string getPicturePath();
+	void setPicturePath(std::string pPath);
 private:
 	int id;
 	int wins;

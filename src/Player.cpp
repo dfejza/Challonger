@@ -26,3 +26,8 @@ std::string Player::getPicturePath()
 {
 	return this->picturePath;
 }
+
+void Player::setPicturePath(std::string pPath)
+{
+	this->picturePath = pPath;
+}

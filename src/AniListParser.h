@@ -1,10 +1,10 @@
 #pragma once
 
 #include <cpr\cpr.h>
-#include <curl\curl.h>
 #include <string>
 #include <json.hpp>
 #include <stdio.h>
+
 
 class AniListParser {
 public:
