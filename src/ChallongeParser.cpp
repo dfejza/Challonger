@@ -7,10 +7,10 @@ ChallongeParser::ChallongeParser(PlayerFrame** p1f, PlayerFrame** p2f ) :
 	currentMatch(0),
 	numPlayers(3)//TODO Set this during init config screen
 {
-	tournamentId = "asfasfasdfasdfasdf";
+	tournamentId = "BestGrill";
 	matchIndex = "";
 	apiKey = "cnGhQzQf4yc4P6OxmsoxKWaOFEMtQa1kHpDIMy8L";
-
+	//TODO WHY DOES "CHIYO" not work on search results
 	auto s = cpr::Get(cpr::Url{CHALLONGE_API_BASE_URL+TOURNAMENTS_SUFFIX+tournamentId+"/matches.json"},
 		cpr::Parameters{ { "api_key", apiKey } });
 	/*
