@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include <string>
-#include <QtWidgets>
 //#include "lib\anilist\anilistapi.h"
 
 //AniListAPI *apiFetch = new AniListAPI(NULL, "brah-gkee1","oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz");
@@ -11,8 +10,6 @@ MainWindow::MainWindow(QWidget *parent)
 	QWidget *widget = new QWidget;
 	setCentralWidget(widget);
 
-	QWidget *topFiller = new QWidget;
-	topFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
 	//Player 1
 	p1Frame = new PlayerFrame("assets/p1.jpg", "Player 1");
@@ -28,9 +25,6 @@ MainWindow::MainWindow(QWidget *parent)
 	p2_button->setGeometry(QRect(QPoint(100, 100),
 		QSize(200, 50)));
 
-	QWidget *bottomFiller = new QWidget;
-	bottomFiller->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
-
 	// Create the layout schemes
 	// Add the qObjects to the layouts
 	QHBoxLayout *centerHorizontalLayout = new QHBoxLayout;
@@ -38,15 +32,24 @@ MainWindow::MainWindow(QWidget *parent)
 	centerHorizontalLayout->addLayout(p1Frame);
 	centerHorizontalLayout->addSpacing(100);
 	centerHorizontalLayout->addLayout(p2Frame);
+	//centerHorizontalLayout->addStretch(1);
+	
+
+	QHBoxLayout *bottomHorizontalLayout = new QHBoxLayout;
+	bottomHorizontalLayout->setMargin(100);
+	bottomHorizontalLayout->addWidget(p1_button);
+	bottomHorizontalLayout->addSpacing(100);
+	bottomHorizontalLayout->addWidget(p2_button);
+	//bottomHorizontalLayout->addStretch(1);
 
 	QVBoxLayout *mainVerticalLayout = new QVBoxLayout;
-	mainVerticalLayout->setMargin(5);
+	mainVerticalLayout->setMargin(1);
 
 
 	//layout->addWidget(infoLabel);
-	mainVerticalLayout->addWidget(topFiller);
 	mainVerticalLayout->addLayout(centerHorizontalLayout);
-	mainVerticalLayout->addWidget(bottomFiller);
+	//mainVerticalLayout->addLayout(centerHorizontalLayout);
+	mainVerticalLayout->addLayout(bottomHorizontalLayout);
 	widget->setLayout(mainVerticalLayout);
 
 	createActions();
@@ -57,9 +60,9 @@ MainWindow::MainWindow(QWidget *parent)
 
 	setWindowTitle(tr("Menus"));
 	setMinimumSize(160, 160);
-	resize(960, 640);
+	resize(1100, 900);
 
-	challonge = new ChallongeParser();
+	challonge = new ChallongeParser(&p1Frame, &p2Frame);
 
 }
 
@@ -129,6 +132,9 @@ void MainWindow::createActions()
 	//aboutAct->setShortcuts(QKeySequence::New);
 	aboutAct->setStatusTip(tr("Create a new file"));
 	connect(aboutAct, &QAction::triggered, this, &MainWindow::about);
+
+	connect(p1_button, SIGNAL(released()), this, SLOT(handleP1Button()));
+	connect(p2_button, SIGNAL(released()), this, SLOT(handleP2Button()));
 }
 
 void MainWindow::createMenus()

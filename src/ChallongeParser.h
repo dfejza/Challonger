@@ -4,6 +4,8 @@
 #include <string>
 #include "PlayerDatabase.h"
 #include "Player.h"
+#include "PlayerFrame.h"
+//#include <QtWidgets>
 //#include "mainwindow.h"
 // TODO: Build an index of the participants. Make it a hashmap, challongeAPI already hashes it (see playerX-id)
 // TODO: Keep statistics on them. Download all their portraits at the start, thus poll locallys
@@ -16,7 +18,7 @@ const std::string TOURNAMENTS_SUFFIX = "tournaments/";
 class ChallongeParser
 {
 public:
-	ChallongeParser();
+	ChallongeParser(PlayerFrame** p1f, PlayerFrame** p2f);
 	void getCaughtUp();
 	void incPlayerOneScore();//keep an internal counter. When counter reachers # of voters, then place a PUT rest request.
 	void incPlayerTwoScore();
@@ -42,4 +44,7 @@ private:
 	AniListParser *aniList; //TODO introduce a class to handle metadata and parsers
 	Player *p1;
 	Player *p2;
+	//TODO feels awks to have pointers here
+	PlayerFrame *p1frame;
+	PlayerFrame *p2frame;
 };

@@ -10,8 +10,13 @@ PlayerFrame::PlayerFrame(QString picPath, QString picLabel)
 	picture->setAlignment(Qt::AlignCenter);
 	text->setAlignment(Qt::AlignCenter);
 
+	//picture->setFixedHeight(400);
+	//picture->setMinimumSize(800, 800);
+	//picture->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+
 	this->addWidget(picture);
 	this->addWidget(text);
+	delete(image);
 }
 
 void PlayerFrame::setPicture(QString pic)
@@ -33,4 +38,5 @@ void PlayerFrame::updateFrame(QString picPath, QString picLabel) {
 
 	picture->setPixmap(QPixmap::fromImage(scaled));
 	text->setText(picLabel);
+	delete(image);
 }

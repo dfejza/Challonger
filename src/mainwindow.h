@@ -5,6 +5,7 @@
 #include "json.hpp"
 #include "PlayerFrame.h"
 #include "ChallongeParser.h"
+#include <QtWidgets>
 
 // for convenience
 using json = nlohmann::json;

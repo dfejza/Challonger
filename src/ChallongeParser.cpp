@@ -1,7 +1,7 @@
 #include "ChallongeParser.h"
 //TODO seperate REST interfacing with manipulation of json file into different classes
 
-ChallongeParser::ChallongeParser() :
+ChallongeParser::ChallongeParser(PlayerFrame** p1f, PlayerFrame** p2f ) :
 	playerOneScore(0),
 	playerTwoScore(0),
 	currentMatch(0),
@@ -35,6 +35,9 @@ ChallongeParser::ChallongeParser() :
 	participantIndex = json::parse(j.text);
 
 	db = new PlayerDatabase(participantIndex);
+
+	p1frame = *p1f;
+	p2frame = *p2f;
 
 	getCaughtUp();
 	loadPlayers(&p1, &p2);
@@ -99,16 +102,24 @@ void ChallongeParser::pushWinner()
 	int winnerId = matchIndex.at(currentMatch).at("match").at(winner);
 	//TODO for matchfield, take scores ints and make a string out of them
 	auto r = cpr::Put(cpr::Url{CHALLONGE_API_BASE_URL+TOURNAMENTS_SUFFIX+tournamentId+"/matches/"+ std::to_string(currentMatchId) +".json"},
-	cpr::Payload{ { "api_key", apiKey},{ "match[scores_csv]", "3-0" },{ "match[winner_id]",std::to_string(winnerId)}});
+	
+		cpr::Payload{ { "api_key", apiKey},{ "match[scores_csv]",
+		(std::to_string(playerOneScore)+"-"+std::to_string(playerTwoScore)) },
+		{ "match[winner_id]",std::to_string(winnerId)}});
 
 	currentMatch++;
 	playerOneScore = 0;
 	playerTwoScore = 0;
 
 	loadPlayers(&p1, &p2);
+	//todo sleep timer of 3 seconds?
+
 }
 
 void ChallongeParser::loadPlayers(Player** p1p, Player** p2p){
 	db->getPlayer(matchIndex.at(currentMatch).at("match").at("player1_id"), p1p);
 	db->getPlayer(matchIndex.at(currentMatch).at("match").at("player2_id"), p2p);
+
+	p1frame->updateFrame(QString::fromStdString(p1->getPicturePath()), QString::fromStdString(p1->getName()));
+	p2frame->updateFrame(QString::fromStdString(p2->getPicturePath()), QString::fromStdString(p2->getName()));
 }
