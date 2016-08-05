@@ -30,8 +30,10 @@ protected:
 private slots:
 	void credentials();
 	void match();
-	void quit();
+	void newTourn();
+	void loadTourn();
 	void about();
+	void quit();
 	void handleP1Button();
 	void handleP2Button();
 	void updatePlayer1Frame(std::string picPath, std::string name);
@@ -40,6 +42,7 @@ private slots:
 private:
 	void createActions();
 	void createMenus();
+	void initTournamentUI();
 
 	QMenu *fileMenu;
 	QMenu *editMenu;
@@ -48,8 +51,10 @@ private:
 	QActionGroup *alignmentGroup;
 	QAction *credentialsAct;
 	QAction *matchAct;
-	QAction *quitAct;
+	QAction *newAct;
+	QAction *loadAct;
 	QAction *aboutAct;
+	QAction *quitAct;
 	QPushButton *p1_button;
 	QPushButton *p2_button;
 	PlayerFrame *p1Frame;
