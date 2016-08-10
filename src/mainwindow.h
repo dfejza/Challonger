@@ -5,6 +5,7 @@
 #include "json.hpp"
 #include "PlayerFrame.h"
 #include "ChallongeParser.h"
+#include "UserVar.h"
 #include <QtWidgets>
 
 // for convenience
@@ -38,6 +39,7 @@ private slots:
 	void handleP2Button();
 	void updatePlayer1Frame(std::string picPath, std::string name);
 	void updatePlayer2Frame(std::string picPath, std::string name);
+	void removeWizard();
 
 private:
 	void createActions();
@@ -59,6 +61,7 @@ private:
 	QPushButton *p2_button;
 	PlayerFrame *p1Frame;
 	PlayerFrame *p2Frame;
+	QWizard *wizard;
 
 	ChallongeParser *challonge;
 	ImageManager *imgManager;

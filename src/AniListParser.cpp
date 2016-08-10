@@ -1,14 +1,12 @@
 #include "AniListParser.h"
-const std::string ANILIST_API_URL ="https://anilist.co/api/";
-const std::string AUTHENTICATION_SUFFIX ="auth/access_token";
-const std::string SEARCH_SUFFIX ="character/search/";
-
-
+const std::string ANILIST_API_URL = "https://anilist.co/api/";
+const std::string AUTHENTICATION_SUFFIX = "auth/access_token";
+const std::string SEARCH_SUFFIX = "character/search/";
 
 AniListParser::AniListParser()
 {
-	clientId = "brah-gkee1";
-	clientSecrete = "oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz";
+	clientId = UserVar::apiId;//"brah-gkee1";
+	clientSecrete = UserVar::apiKey;//"oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz";
 	AniListParser::renewToken();
 }
 

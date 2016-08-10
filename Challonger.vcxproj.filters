@@ -100,6 +100,9 @@
     <ClCompile Include="src\ImageManager.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\UserVar.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src\mainwindow.h">
@@ -126,6 +129,12 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="src\ImageManager.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UserVar.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\constants.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -172,6 +172,7 @@
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\PlayerDatabase.cpp" />
     <ClCompile Include="src\PlayerFrame.cpp" />
+    <ClCompile Include="src\UserVar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src\mainwindow.h">
@@ -189,10 +190,12 @@
     <ClInclude Include="lib\json\json.hpp" />
     <ClInclude Include="src\AniListParser.h" />
     <ClInclude Include="src\ChallongeParser.h" />
+    <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\ImageManager.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\PlayerDatabase.h" />
     <ClInclude Include="src\PlayerFrame.h" />
+    <ClInclude Include="src\UserVar.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

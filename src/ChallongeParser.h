@@ -5,6 +5,7 @@
 #include "PlayerDatabase.h"
 #include "Player.h"
 #include "PlayerFrame.h"
+#include "UserVar.h"
 //#include <QtWidgets>
 //#include "mainwindow.h"
 // TODO: Build an index of the participants. Make it a hashmap, challongeAPI already hashes it (see playerX-id)
