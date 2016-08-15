@@ -150,7 +150,13 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_mainwindow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_newWizardDialogue.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_mainwindow.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_newWizardDialogue.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="lib\cpr\cpr\auth.cpp" />
@@ -169,6 +175,7 @@
     <ClCompile Include="src\ImageManager.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\mainwindow.cpp" />
+    <ClCompile Include="src\newWizardDialogue.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\PlayerDatabase.cpp" />
     <ClCompile Include="src\PlayerFrame.cpp" />
@@ -192,6 +199,16 @@
     <ClInclude Include="src\ChallongeParser.h" />
     <ClInclude Include="src\constants.h" />
     <ClInclude Include="src\ImageManager.h" />
+    <CustomBuild Include="src\newWizardDialogue.h">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing newWizardDialogue.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DCURL_STATICLIB -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -D_MBCS "-I." "-I.\..\Qt\5.7\msvc2015_64\include" "-IC:\Challonger\lib\json" "-I.\..\Qt\5.7\msvc2015_64\include\QtWidgets" "-IC:\Challonger\lib\libcurl\include" "-I.\..\Qt\5.7\msvc2015_64\include\QtGui" "-I.\..\Qt\5.7\msvc2015_64\include\QtANGLE" "-I.\..\Qt\5.7\msvc2015_64\include\QtCore" "-I.\debug" "-I.\..\Qt\5.7\msvc2015_64\mkspecs\win32-msvc2015"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing newWizardDialogue.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DCURL_STATICLIB -DUNICODE -DWIN32 -DWIN64 -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\..\Qt\5.7\msvc2015_64\include" "-I.\..\Qt\5.7\msvc2015_64\include\QtWidgets" "-I.\..\Qt\5.7\msvc2015_64\include\QtGui" "-IC:\Challonger\lib\libcurl\include" "-I.\..\Qt\5.7\msvc2015_64\include\QtANGLE" "-I.\..\Qt\5.7\msvc2015_64\include\QtCore" "-I.\release" "-I.\..\Qt\5.7\msvc2015_64\mkspecs\win32-msvc2015"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\PlayerDatabase.h" />
     <ClInclude Include="src\PlayerFrame.h" />
