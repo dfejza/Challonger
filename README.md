@@ -1,4 +1,4 @@
-# Abbadoned. Planning on recreating this as a NW.js application
+# Abandoned. Planning on recreating this as a NW.js application
 
 ## challonger ; A tournament bracket simulator, but not that kind tournament.
 
