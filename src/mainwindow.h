@@ -7,9 +7,9 @@
 #include "ChallongeParser.h"
 #include "UserVar.h"
 #include "newWizardDialogue.h"
-//
+#include "FileHandler.h"
 #include <QtWidgets>
-
+#include <QMessageBox>
 
 // for convenience
 using json = nlohmann::json;
@@ -48,6 +48,7 @@ private:
 	void createMenus();
 	void initTournamentUI();
 
+	QWidget *widget;
 	QMenu *fileMenu;
 	QMenu *editMenu;
 	QMenu *formatMenu;
@@ -66,6 +67,7 @@ private:
 
 	ChallongeParser *challonge;
 	ImageManager *imgManager;
+	FileHandler fileHandler;
 };
 
 #endif // MAINWINDOW_H

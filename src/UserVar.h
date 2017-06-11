@@ -1,7 +1,7 @@
 #ifndef USERVAR_H
 #define USERVAR_H
 
-#include <string>
+#include <QString>
 
 enum api { anilist, google, imdb };
 
@@ -10,11 +10,12 @@ class UserVar {
 		//TODO I dont know if making these static is the cleanest approach...
 		static int apiChoice;
 		// img search api specific variables
-		static std::string apiKey;
-		static std::string apiId;
+		static QString apiKey;
+		static QString apiId;
 		// Challonger specific variables
-		static std::string challongerKey;
-		static std::string tournamentId;
+		static QString challongerKey;
+		static QString tournamentId;
+		static QString tournamentName;
 };
 
 #endif

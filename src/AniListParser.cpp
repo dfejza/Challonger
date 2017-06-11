@@ -5,8 +5,8 @@ const std::string SEARCH_SUFFIX = "character/search/";
 
 AniListParser::AniListParser()
 {
-	clientId = UserVar::apiId;//"brah-gkee1";
-	clientSecrete = UserVar::apiKey;//"oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz";
+	clientId = "brah-gkee1";//UserVar::apiId;//"brah-gkee1";
+	clientSecrete = "oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz";//UserVar::apiKey;//"oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz";
 	AniListParser::renewToken();
 }
 

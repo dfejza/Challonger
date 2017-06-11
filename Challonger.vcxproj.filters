@@ -100,9 +100,6 @@
     <ClCompile Include="src\ImageManager.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\UserVar.cpp">
-      <Filter>Generated Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\newWizardDialogue.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
@@ -112,12 +109,24 @@
     <ClCompile Include="GeneratedFiles\Release\moc_newWizardDialogue.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="src\FileHandler.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_FileHandler.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="src\UserVar.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="src\mainwindow.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="src\newWizardDialogue.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="src\FileHandler.h">
       <Filter>Generated Files</Filter>
     </CustomBuild>
   </ItemGroup>
@@ -143,10 +152,10 @@
     <ClInclude Include="src\ImageManager.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\UserVar.h">
+    <ClInclude Include="src\constants.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\constants.h">
+    <ClInclude Include="src\UserVar.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

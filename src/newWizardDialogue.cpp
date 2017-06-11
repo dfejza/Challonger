@@ -20,7 +20,7 @@ IntroPage::IntroPage(QWidget *parent)
 	layout->addWidget(nameLabel, 0, 0);
 	layout->addWidget(nameLineEdit, 0, 1);
 
-	registerField("register.challonge*", nameLineEdit);
+	registerField("challonge*", nameLineEdit);
 
 	setLayout(layout);
 }
@@ -75,8 +75,10 @@ AnilistPage::AnilistPage(QWidget *parent)
 	layoutPageTwo->addWidget(clientSecretEdit, 3, 1);
 	layoutPageTwo->addWidget(valButton, 5, 1);
 
-	registerField("register.clientIDEdit*", clientIDEdit);
-	registerField("register.clientSecretEdit*", clientSecretEdit);
+	registerField("clientIDEdit*", clientIDEdit);
+	registerField("clientSecretEdit*", clientSecretEdit);
+	//UserVar::apiId = field("register.clientIDEdit").toString().toStdString();
+	//UserVar::apiKey = field("register.clientSecretEdit").toString().toStdString();
 
 	setLayout(layoutPageTwo);
 	connect(valButton, SIGNAL(released()), this, SLOT(checkAnilistApi()));
@@ -90,7 +92,7 @@ void AnilistPage::checkAnilistApi() {
 GooglePage::GooglePage(QWidget *parent)
 	: QWizardPage(parent)
 {
-	setTitle("API Info");
+	setTitle("API Info"); 
 	setSubTitle("Google");
 
 	layoutPageTwo = new QGridLayout;
@@ -119,6 +121,7 @@ GooglePage::GooglePage(QWidget *parent)
 }
 
 void GooglePage::checkGoogleApi() {
+
 	nextBtn = true;
 	emit completeChanged();
 }
@@ -140,8 +143,6 @@ ImdbPage::ImdbPage(QWidget *parent)
 	layoutPageTwo->addWidget(directions, 0, 0);
 
 	setLayout(layoutPageTwo);
-
-	//connect(p1_button, SIGNAL(released()), this, SLOT(handleP1Button()))
 }
 
 ConclusionPage::ConclusionPage(QWidget *parent)
@@ -149,16 +150,21 @@ ConclusionPage::ConclusionPage(QWidget *parent)
 {
 	setTitle("Conclusion");
 
-	label = new QLabel("You are now successfully registered. Have a "
-		"nice day!");
+	label = new QLabel("What would you like to name this tournament?");
 	label->setWordWrap(true);
+	tournamentName = new QLineEdit;
 
 	layout = new QVBoxLayout;
 	layout->addWidget(label);
+	layout->addWidget(tournamentName);
+
+	registerField("tournamentName*", tournamentName);
+
 	setLayout(layout);
 }
 
-newWizardDialogue::newWizardDialogue() 
+newWizardDialogue::newWizardDialogue(QWidget *parent)
+	: QWizard(parent)
 {
 	nxtBtn = button(QWizard::NextButton);
 
@@ -171,7 +177,7 @@ newWizardDialogue::newWizardDialogue()
 	setStartId(Page_Intro);
 
 	connect(button(QWizard::CancelButton), SIGNAL(clicked()), this, SLOT(~newWizardDialogue()));
-	connect(button(QWizard::FinishButton), SIGNAL(clicked()), this, SLOT(~newWizardDialogue()));
+	//connect(button(QWizard::FinishButton), SIGNAL(clicked()), this, SLOT(accept()));
 
 }
 
@@ -194,24 +200,33 @@ bool ImdbPage::isComplete() const
 	return false;
 }
 
-newWizardDialogue::~newWizardDialogue()
+bool ConclusionPage::isFinalPage() const
 {
-	//delete(this);
-	UserVar::challongerKey = field("register.challonge*").toString().toStdString();
-	//UserVar::tournamentId = field("register.tournamentId").toString().toStdString();
+	return true;
+}
+
+void newWizardDialogue::accept()
+{
+	UserVar::challongerKey = field("challonge").toString();
+	UserVar::tournamentName = field("tournamentName").toString();
 	if (UserVar::apiChoice == 0)
 	{
-		UserVar::apiId = field("register.clientIDEdit*").toString().toStdString();
-		UserVar::apiKey = field("register.clientSecretEdit*").toString().toStdString();
+		UserVar::apiId = field("clientIDEdit").toString();
+		UserVar::apiKey = field("clientSecretEdit").toString();
 	}
 	else if (UserVar::apiChoice == 1)
 	{
-		UserVar::challongerKey = field("register.clientSecretEdit*").toString().toStdString();
+		UserVar::challongerKey = field("googleAPI").toString();
 	}
 	else
 	{
 		//UserVar::challongerKey = field("register.challonge").toString().toStdString();
 	}
+	QDialog::accept();
+}
+newWizardDialogue::~newWizardDialogue()
+{
+	//todo?
 }
 
 
@@ -252,11 +267,6 @@ int GooglePage::nextId() const
 }
 
 int ImdbPage::nextId() const
-{
-	return newWizardDialogue::Page_Conclusion;
-}
-
-int ConclusionPage::nextId() const
 {
 	return newWizardDialogue::Page_Conclusion;
 }

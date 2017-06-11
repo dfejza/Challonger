@@ -4,14 +4,14 @@
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-	QWidget *widget = new QWidget;
+	widget = new QWidget;
 	setCentralWidget(widget);
 
-	QVBoxLayout *mainVerticalLayout = new QVBoxLayout;
+	QVBoxLayout *mainVerticalLayout = new QVBoxLayout; //TODO MEM LEAK
 	mainVerticalLayout->setMargin(1);
 	QLabel *intro = new QLabel("New API and Tournament? \n File->New Tournament\n"
-		"\nContinuing a previous tournament?\n File->Load Tournament\n"
-	"\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		 "\nContinuing a previous tournament?\n File->Load Tournament\n"
+		 "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 	intro->setAlignment(Qt::AlignCenter);
 	mainVerticalLayout->addWidget(intro);
 	widget->setLayout(mainVerticalLayout);
@@ -32,6 +32,8 @@ MainWindow::~MainWindow(){}
 
 void MainWindow::initTournamentUI() 
 {
+	widget = new QWidget;
+	setCentralWidget(widget);
 
 	//Player 1
 	p1Frame = new PlayerFrame("assets/p1.jpg", "Player 1");
@@ -73,6 +75,9 @@ void MainWindow::initTournamentUI()
 	//mainVerticalLayout->addLayout(centerHorizontalLayout);
 	mainVerticalLayout->addLayout(bottomHorizontalLayout);
 
+	widget->setLayout(mainVerticalLayout);
+	
+
 	challonge = new ChallongeParser(&p1Frame, &p2Frame);
 
 	connect(p1_button, SIGNAL(released()), this, SLOT(handleP1Button()));
@@ -104,7 +109,18 @@ void MainWindow::contextMenuEvent(QContextMenuEvent *event)
 
 void MainWindow::loadTourn()
 {
+	fileHandler.loadCredentials(QFileDialog::getOpenFileName(this,
+		tr("Open Tournament Cred"), "",
+		tr("Tournament File (*.brah);;All Files (*)")));
 
+	//check if the wizard was canceld
+	if (UserVar::challongerKey.size() > 5)
+	{
+		delete widget;
+
+		// Start the GUI
+		initTournamentUI();
+	}
 }
 
 void MainWindow::quit()
@@ -195,4 +211,13 @@ void MainWindow::newTourn()
 {
 	newWizardDialogue wizard;
 	wizard.exec();
+	//check if the wizard was canceld
+	if (UserVar::challongerKey.size() > 5)
+	{
+		delete widget;
+		// Save the credentials
+		fileHandler.saveCredentials();
+		// Start the GUI
+		initTournamentUI();
+	}
 }

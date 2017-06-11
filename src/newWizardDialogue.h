@@ -6,14 +6,16 @@
 
 class newWizardDialogue : public QWizard
 {
+	Q_OBJECT
 public:
 	enum {
 		Page_Intro, Page_API, Page_ANILIST, Page_GOOGLE, Page_IMDB,
 		Page_Conclusion
 	};
 
-	newWizardDialogue();
+	newWizardDialogue(QWidget *parent = 0);
 	~newWizardDialogue();
+	void accept();
 	QAbstractButton *nxtBtn;
 private:
 
@@ -125,9 +127,9 @@ class ConclusionPage : public QWizardPage
 public:
 	ConclusionPage(QWidget *parent = 0);
 
-	int nextId() const Q_DECL_OVERRIDE;
-
 private:
 	QLabel *label;
 	QVBoxLayout *layout;
+	QLineEdit *tournamentName;
+	bool isFinalPage() const;
 };

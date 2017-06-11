@@ -147,6 +147,7 @@
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\FileHandler.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_mainwindow.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -194,6 +195,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="src\FileHandler.h" />
     <ClInclude Include="lib\json\json.hpp" />
     <ClInclude Include="src\AniListParser.h" />
     <ClInclude Include="src\ChallongeParser.h" />
