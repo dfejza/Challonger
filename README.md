@@ -1,4 +1,6 @@
-# challonger ; A tournament bracket simulator, but not that kind tournament.
+# Abandoned. Planning on recreating this as a NW.js application
+
+## challonger ; A tournament bracket simulator, but not that kind tournament.
 
 
 Planned features (sorted by priority):
