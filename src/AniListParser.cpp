@@ -5,8 +5,8 @@ const std::string SEARCH_SUFFIX = "character/search/";
 
 AniListParser::AniListParser()
 {
-	clientId = "brah-gkee1";//UserVar::apiId;//"brah-gkee1";
-	clientSecrete = "oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz";//UserVar::apiKey;//"oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz";
+	clientId = UserVar::apiId.toStdString();//"brah-gkee1";
+	clientSecrete = UserVar::apiKey.toStdString();//"oVNN5Ky9wJdoyMPpcZV2b2DlfpwJYz";
 	AniListParser::renewToken();
 }
 
@@ -21,22 +21,40 @@ std::string AniListParser::getCharacterImg(std::string charName)
 		charName.replace(pos, 1, "%20");
 	}
 
+	//TODO DEBUG REASONS ONLY
+	for (size_t pos = charName.find('(');
+		pos != std::string::npos;
+		pos = charName.find('(', pos))
+	{
+		charName = charName.substr(0, pos);
+		break;
+	}
+
+	std::string test = ANILIST_API_URL + SEARCH_SUFFIX + charName;
 	auto s = cpr::Get(cpr::Url{ANILIST_API_URL+SEARCH_SUFFIX+charName},
 		cpr::Parameters{ { "access_token", token } });
 	nlohmann::json p = nlohmann::json::parse(s.text);
 
 	//if empty search result
-	if (s.text.size() < 8) {
+	if ((s.text.size() < 8)) {
 		return "http://anilist.co/img/dir/character/reg/42093.jpg";
 	}
 
-	// Response an object inside an array
-	auto accessString = p.at(0).at("image_url_lge");
-	std::string temp = accessString;
-	char *cstr = new char[temp.length() + 1];
-	strcpy(cstr, temp.c_str());
+	// If an empty search result, p.at(0) wont exist
+	try
+	{
+		auto accessString = p.at(0).at("image_url_lge");
+		std::string temp = accessString;
+		char *cstr = new char[temp.length() + 1];
+		strcpy(cstr, temp.c_str());
+		return accessString;
+	}
+	catch (std::exception &e)
+	{
+		return "http://anilist.co/img/dir/character/reg/42093.jpg";
+	}
 
-	return accessString;
+	return "http://anilist.co/img/dir/character/reg/42093.jpg";
 }
 
 //TODO Make a timer for this guy

@@ -41,8 +41,9 @@ std::string ImageManager::downloadImage(std::string url, int playerId)
 	if (curl) {
 		fp = fopen(outfilename, "wb");
 		curl_easy_setopt(curl, CURLOPT_URL, url1);
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1);
 		res = curl_easy_perform(curl);
 		/* always cleanup */
 		curl_easy_cleanup(curl);

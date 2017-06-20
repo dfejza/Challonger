@@ -112,9 +112,6 @@
     <ClCompile Include="src\FileHandler.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_FileHandler.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
     <ClCompile Include="src\UserVar.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>

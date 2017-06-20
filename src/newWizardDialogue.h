@@ -34,6 +34,8 @@ public:
 private:
 	QLabel *nameLabel;
 	QLineEdit *nameLineEdit;
+	QLabel *nameTournLabel;
+	QLineEdit *nameTournLineEdit;
 	QGridLayout *layout;
 };
 

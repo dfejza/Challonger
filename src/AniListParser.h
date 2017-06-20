@@ -5,6 +5,7 @@
 #include <json.hpp>
 #include <stdio.h>
 #include "UserVar.h"
+#include <stdexcept>
 
 class AniListParser {
 public:

@@ -1,30 +1,40 @@
 #include "ChallongeParser.h"
 //TODO seperate REST interfacing with manipulation of json file into different classes
 
-ChallongeParser::ChallongeParser(PlayerFrame** p1f, PlayerFrame** p2f ) :
+ChallongeParser::ChallongeParser(PlayerFrame** p1f, PlayerFrame** p2f, QProgressDialog** progressBar) :
 	playerOneScore(0),
 	playerTwoScore(0),
 	currentMatch(0),
 	numPlayers(3)//TODO Set this during init config screen
 {
-	tournamentId = "BestGrill";//UserVar::tournamentId;//"BestGrill";
+	tournamentId = UserVar::tournamentId.toStdString();//"BestGrill";
 	matchIndex = "";
-	apiKey = "cnGhQzQf4yc4P6OxmsoxKWaOFEMtQa1kHpDIMy8L"; // UserVar::challongerKey;//
+	apiKey = UserVar::challongerKey.toStdString();//"cnGhQzQf4yc4P6OxmsoxKWaOFEMtQa1kHpDIMy8L"; // UserVar::challongerKey;//
 	//TODO WHY DOES "CHIYO" not work on search results
-	auto s = cpr::Get(cpr::Url{CHALLONGE_API_BASE_URL+TOURNAMENTS_SUFFIX+tournamentId+"/matches.json"},
-		cpr::Parameters{ { "api_key", apiKey } });
-	/*
-	s.status_code type int
-	0 - no internet?
-    200 - OK
-    401 - Unauthorized (Invalid API key or insufficient permissions)
-    404 - Object not found within your account scope
-    406 - Requested format is not supported - request JSON or XML only
-    422 - Validation error(s) for create or update method
-    500 - Something went wrong on our end. If you continually receive this, please contact us.
+	do
+	{
+		auto s = cpr::Get(cpr::Url{ CHALLONGE_API_BASE_URL + TOURNAMENTS_SUFFIX + tournamentId + "/matches.json" },
+			cpr::Parameters{ { "api_key", apiKey } });
+		/*
+		s.status_code type int
+		0 - no internet?
+		200 - OK
+		401 - Unauthorized (Invalid API key or insufficient permissions)
+		404 - Object not found within your account scope
+		406 - Requested format is not supported - request JSON or XML only
+		422 - Validation error(s) for create or update method
+		500 - Something went wrong on our end. If you continually receive this, please contact us.
 
-	*/
-	matchIndex = json::parse(s.text);
+		*/
+		matchIndex = json::parse(s.text);
+		// If loaded, reload
+		if (matchIndex.size() <= 4)
+		{
+			auto r = cpr::Post(cpr::Url{ CHALLONGE_API_BASE_URL + TOURNAMENTS_SUFFIX + tournamentId + "/start.json" },
+				cpr::Payload{ { "api_key", apiKey },{ "include_participants", 1 },{ "include_matches", 1 } });
+		}
+	} while (matchIndex.size() <= 4);
+
 
 	//make empy player shells
 	p1 = new Player();
@@ -34,7 +44,7 @@ ChallongeParser::ChallongeParser(PlayerFrame** p1f, PlayerFrame** p2f ) :
 		cpr::Parameters{ { "api_key", apiKey } });
 	participantIndex = json::parse(j.text);
 
-	db = new PlayerDatabase(participantIndex);
+	db = new PlayerDatabase(participantIndex, progressBar);
 
 	p1frame = *p1f;
 	p2frame = *p2f;

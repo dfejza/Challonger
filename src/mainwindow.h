@@ -68,6 +68,9 @@ private:
 	ChallongeParser *challonge;
 	ImageManager *imgManager;
 	FileHandler fileHandler;
+
+	double progressBar;
+	QProgressDialog *progressdialog;
 };
 
 #endif // MAINWINDOW_H

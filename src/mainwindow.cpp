@@ -13,6 +13,7 @@ MainWindow::MainWindow(QWidget *parent)
 		 "\nContinuing a previous tournament?\n File->Load Tournament\n"
 		 "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
 	intro->setAlignment(Qt::AlignCenter);
+
 	mainVerticalLayout->addWidget(intro);
 	widget->setLayout(mainVerticalLayout);
 
@@ -34,6 +35,9 @@ void MainWindow::initTournamentUI()
 {
 	widget = new QWidget;
 	setCentralWidget(widget);
+
+	progressdialog = new QProgressDialog("Downloading images...", "Cancel", 0, 10000, this);
+	progressdialog->setWindowModality(Qt::WindowModal);
 
 	//Player 1
 	p1Frame = new PlayerFrame("assets/p1.jpg", "Player 1");
@@ -78,7 +82,7 @@ void MainWindow::initTournamentUI()
 	widget->setLayout(mainVerticalLayout);
 	
 
-	challonge = new ChallongeParser(&p1Frame, &p2Frame);
+	challonge = new ChallongeParser(&p1Frame, &p2Frame, &progressdialog);
 
 	connect(p1_button, SIGNAL(released()), this, SLOT(handleP1Button()));
 	connect(p2_button, SIGNAL(released()), this, SLOT(handleP2Button()));

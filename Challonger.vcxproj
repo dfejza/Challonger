@@ -124,6 +124,7 @@
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
       <WarningLevel>Level3</WarningLevel>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
+      <OpenMPSupport>true</OpenMPSupport>
     </ClCompile>
     <Link>
       <AdditionalDependencies>C:\Qt\5.7\msvc2015_64\lib\qtmaind.lib;C:\Challonger\lib\libcurl\lib\libcurl_a_debug.lib;shell32.lib;C:\Qt\5.7\msvc2015_64\lib\Qt5Widgetsd.lib;C:\Qt\5.7\msvc2015_64\lib\Qt5Guid.lib;C:\Qt\5.7\msvc2015_64\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>

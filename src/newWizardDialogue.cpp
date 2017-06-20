@@ -11,16 +11,22 @@ IntroPage::IntroPage(QWidget *parent)
 	setSubTitle("Please enter your challong API information.\n"
 		"While logged in to Challonge.com, access the following URL :\n"
 		"https://challonge.com/settings/developer \n"
-		"Copy the API Key field found and place it in the following box.");
+		"Copy the API Key field found and place it in the following box.\n\n"
+		"Tournament URL is without challonger.com/ prefix. For example, \n for http://challonge.com/BestGrill the url will be 'BestGrill'");
 
 	nameLabel = new QLabel("API Key:");
 	nameLineEdit = new QLineEdit;
+	nameTournLabel = new QLabel("Tournament URL suffix:");
+	nameTournLineEdit = new QLineEdit;
 	layout = new QGridLayout;
 
 	layout->addWidget(nameLabel, 0, 0);
 	layout->addWidget(nameLineEdit, 0, 1);
+	layout->addWidget(nameTournLabel, 1, 0);
+	layout->addWidget(nameTournLineEdit, 1, 1);
 
 	registerField("challonge*", nameLineEdit);
+	registerField("tournamentId*", nameTournLineEdit);
 
 	setLayout(layout);
 }
@@ -190,9 +196,9 @@ bool AnilistPage::isComplete() const
 }
 bool GooglePage::isComplete() const
 {
-	if (nextBtn)
-		return true;
-	else
+	//if (nextBtn)
+	//	return true;
+	//else
 		return false;
 }
 bool ImdbPage::isComplete() const
@@ -209,6 +215,7 @@ void newWizardDialogue::accept()
 {
 	UserVar::challongerKey = field("challonge").toString();
 	UserVar::tournamentName = field("tournamentName").toString();
+	UserVar::tournamentId = field("tournamentId").toString();
 	if (UserVar::apiChoice == 0)
 	{
 		UserVar::apiId = field("clientIDEdit").toString();

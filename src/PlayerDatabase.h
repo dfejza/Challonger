@@ -6,13 +6,14 @@
 #include "Player.h"
 #include "AniListParser.h"
 #include "ImageManager.h"
+#include <QProgressDialog>
 
 using json = nlohmann::json;
 
 //lets use hashtable for now, not threaded atm
 class PlayerDatabase{
 public:
-  PlayerDatabase(json o);
+  PlayerDatabase(json o, QProgressDialog** progressBar);
   void createDatabase(json o);
   void getPlayer(int participantId, Player** player);
 private:
@@ -20,4 +21,5 @@ private:
 	std::map <int, Player*> pdb;//maybe make this a pointer?
 	AniListParser *aniList;
 	ImageManager *imgManager;
+	QProgressDialog *progressBar;
 };
